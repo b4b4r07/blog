@@ -26,7 +26,7 @@ func (m *meta) hugo(done <-chan bool) {
 	go func() {
 		select {
 		case <-done:
-			log.Printf("[DEBUG] [hugo process] finished")
+			log.Printf("[DEBUG] hugo: finished")
 			cancel()
 		case <-ctx.Done():
 		}
@@ -43,8 +43,8 @@ func (m *meta) hugo(done <-chan bool) {
 	}
 
 	go func() {
-		log.Printf("[DEBUG] [hugo process] started as background process")
-		hugo.Run(ctx)
+		log.Printf("[DEBUG] hugo: started as background process")
+		hugo.RunWithPrefix(ctx, "[DEBUG] hugo:", "[ERROR] hugo:")
 	}()
 }
 
